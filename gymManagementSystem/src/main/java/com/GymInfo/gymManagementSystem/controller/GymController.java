@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.GymInfo.gymManagementSystem.bean.GymItem;
 import com.GymInfo.gymManagementSystem.bean.Slot;
+import com.GymInfo.gymManagementSystem.bean.SlotItem;
+import com.GymInfo.gymManagementSystem.bean.SlotItemEmbed;
 import com.GymInfo.gymManagementSystem.dao.GymItemDao;
 import com.GymInfo.gymManagementSystem.dao.SlotDao;
+import com.GymInfo.gymManagementSystem.dao.SlotItemDao;
 
 @RestController
 public class GymController {
@@ -24,7 +27,9 @@ public class GymController {
     private GymItemDao gymItemDao;
     @Autowired 
     private SlotDao slotDao;
-
+    @Autowired 
+    private SlotItemDao slotItemDao;
+    
     @GetMapping("/index")
     public ModelAndView showIndexPage() {
         return new ModelAndView("index");
@@ -46,7 +51,12 @@ public class GymController {
     }
 
     @PostMapping("/booking")
-    public ModelAndView saveUserRegisterPage() {
+    public ModelAndView saveUserBookingPage() {
+        return new ModelAndView("index");
+    }
+    
+    @PostMapping("/book")
+    public ModelAndView saveBookingPage() {
         return new ModelAndView("index");
     }
 
@@ -77,19 +87,27 @@ public class GymController {
     @GetMapping("/slot")
     public ModelAndView showSlotEntryPage() {
         Slot slot = new Slot();
-        Long newId = slotDao.generateSlotId();
-        slot.setSlotId(newId);
-        ModelAndView mv = new ModelAndView("slotEntryPage");
-        mv.addObject("slotRecord", slot);
-        return mv;
+        Long newId = slotDao.generateSlotId(); 
+        slot.setSlotId(newId); 
+        ModelAndView mv = new ModelAndView("slotEntryPage"); 
+        mv.addObject("slotRecord", slot); 
+        return mv; 
     }
 
-    @PostMapping("/slot")
+
+@PostMapping("/slot")
     public ModelAndView saveSlot(@ModelAttribute("slotRecord") Slot slot) {
         slotDao.saveNewSlot(slot);
+        List<GymItem> itemList=gymItemDao.displayAllItems();
+        for(GymItem item:itemList)
+        {
+          SlotItemEmbed embed=new SlotItemEmbed(slot.getSlotId(), item.getItemId());
+          SlotItem slotItem=new SlotItem(embed);
+          slotItemDao.save(slotItem);
+        }
         return new ModelAndView("index");
     }
-
+    
     @GetMapping("/slots")
     public ModelAndView showSlotReportPage() {
         List<Slot> slotList = slotDao.displayAllSlots();
@@ -97,7 +115,7 @@ public class GymController {
         mv.addObject("slotList", slotList);
         return mv;
     }
-
+    
     @DeleteMapping("/gymitem/{id}")
     public ResponseEntity<?> deleteItem(@PathVariable Long id) {
         try {
@@ -109,6 +127,7 @@ public class GymController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
         }
     }
+    
     @GetMapping("/gymitem/edit/{id}")
     public ModelAndView showEditItemPage(@PathVariable Long id) {
         GymItem gymItem = gymItemDao.findItemById(id);
@@ -116,12 +135,13 @@ public class GymController {
         mv.addObject("itemRecord", gymItem);
         return mv;
     }
-
+    
     @PostMapping("/gymitem/edit/{id}")
     public ModelAndView processEditItem(@ModelAttribute("itemRecord") GymItem gymItem) {
         gymItemDao.updateItem(gymItem);
         return new ModelAndView("redirect:/gymitems");
     }
+    
     @DeleteMapping("/slot/{id}")
     public ResponseEntity<?> deleteSlot(@PathVariable Long id) {
         try {
@@ -133,6 +153,7 @@ public class GymController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
         }
     }
+    
     @GetMapping("/slot/edit/{id}")
     public ModelAndView showEditSlotPage(@PathVariable Long id) {
         Slot slot = slotDao.findSlotById(id);
@@ -140,10 +161,22 @@ public class GymController {
         mv.addObject("slotRecord", slot);
         return mv;
     }
-
+    
     @PostMapping("/slot/edit/{id}")
     public ModelAndView processEditSlot(@ModelAttribute("slotRecord") Slot slot) {
         slotDao.updateSlot(slot);
         return new ModelAndView("redirect:/slots");
     }
+    
+    @GetMapping("/slot-show/{id}")  
+      public ModelAndView showSlotEnquirePage(@PathVariable Long id)  {
+        Slot slot=slotDao.findSlotById(id);
+        List<GymItem> itemList=gymItemDao.displayAllItems();
+        ModelAndView mv = new ModelAndView("slotBookPage");
+        mv.addObject("slot",slot);
+        mv.addObject("itemList",itemList);
+        itemList.forEach(item->System.out.println(item));
+        return mv;
+    }
+  
 }

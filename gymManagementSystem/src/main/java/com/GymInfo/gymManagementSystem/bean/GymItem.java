@@ -12,7 +12,6 @@ public class GymItem  {
   private Integer totalSeat;
   public GymItem() {
   super();
-  // TODO Auto-generated constructor stub
   }
   public GymItem(long itemId, String itemName, Integer totalSeat) {
   super();

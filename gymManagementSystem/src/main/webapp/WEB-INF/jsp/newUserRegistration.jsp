@@ -13,9 +13,8 @@
  box-sizing: border-box;
 }
 body {
-background: url('https://img.freepik.com/premium-photo/contemporary-spotless-fitness-gym-center-interiorgenerative-ai_391052-10889.jpg') no-repeat center center fixed;
+/* background: url('https://img.freepik.com/premium-photo/contemporary-spotless-fitness-gym-center-interiorgenerative-ai_391052-10889.jpg') no-repeat center center fixed; */
 background-size: cover;
-
  display: flex;
  justify-content: center;
  align-items: center;
