@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ include file="header.jsp" %>
+<%@ include file="header2.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,7 +102,7 @@
 <body>
 <div class="content">
   <div class="image-content">
-    <img src="/image/about.jpg" alt="Gym Image">
+    <img src="/images/about.jpg" alt="Gym Image">
   </div>
   <div class="text-content">
     <h1>A Truly Epic Gym</h1>

@@ -11,7 +11,7 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-image: url('/image/BGimg.jpg');
+        background-image: url('/images/BGimg.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;

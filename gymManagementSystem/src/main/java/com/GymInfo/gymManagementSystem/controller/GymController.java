@@ -12,52 +12,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.GymInfo.gymManagementSystem.bean.GymItem;
+import com.GymInfo.gymManagementSystem.bean.Item;
 import com.GymInfo.gymManagementSystem.bean.Slot;
 import com.GymInfo.gymManagementSystem.bean.SlotItem;
 import com.GymInfo.gymManagementSystem.bean.SlotItemEmbed;
 import com.GymInfo.gymManagementSystem.dao.GymItemDao;
 import com.GymInfo.gymManagementSystem.dao.SlotDao;
 import com.GymInfo.gymManagementSystem.dao.SlotItemDao;
+import com.GymInfo.gymManagementSystem.service.GymItemService;
+import com.GymInfo.gymManagementSystem.service.GymUserService;
 
 @RestController
 public class GymController {
-    @Autowired
+  @Autowired
     private GymItemDao gymItemService;
-    @Autowired
+  @Autowired
     private GymItemDao gymItemDao;
     @Autowired 
     private SlotDao slotDao;
     @Autowired 
     private SlotItemDao slotItemDao;
+    @Autowired
+    private GymItemService itemService;
+    @Autowired
+    private GymUserService userService;
     
     @GetMapping("/index")
     public ModelAndView showIndexPage() {
-        return new ModelAndView("index");
+      String indexPage="";
+      String userType=userService.getType();
+      if(userType.equalsIgnoreCase("Admin"))
+        indexPage="index1";
+      else if(userType.equalsIgnoreCase("Member"))
+        indexPage="index2";
+      return new ModelAndView(indexPage);
     }
 
     @GetMapping("/about")
     public ModelAndView showAboutUSPage() {
         return new ModelAndView("about");
     }
-
-    @GetMapping("/slotbooking")
-    public ModelAndView showSlotBookingPage() {
-        return new ModelAndView("slotBooking");
-    }
-
-    @GetMapping("/booking")
-    public ModelAndView showSlotBookingForm() {
-        return new ModelAndView("slotBookingForm");
-    }
-
-    @PostMapping("/booking")
-    public ModelAndView saveUserBookingPage() {
-        return new ModelAndView("index");
-    }
     
     @PostMapping("/book")
     public ModelAndView saveBookingPage() {
-        return new ModelAndView("index");
+        return new ModelAndView("redirect:/index");
     }
 
     @GetMapping("/gymitem")
@@ -73,7 +71,12 @@ public class GymController {
     @PostMapping("/gymitem")
     public ModelAndView saveItem(@ModelAttribute("itemRecord") GymItem gymItem) {
         gymItemDao.saveNewItem(gymItem);
-        return new ModelAndView("index");
+        //return new ModelAndView("redirect:/index");
+        //return new ModelAndView("gymItemReportPage");
+        List<GymItem> itemList = gymItemDao.displayAllItems();
+        ModelAndView mv = new ModelAndView("gymItemReportPage");
+        mv.addObject("itemList", itemList);
+        return mv;
     }
 
     @GetMapping("/gymitems")
@@ -94,7 +97,6 @@ public class GymController {
         return mv; 
     }
 
-
 @PostMapping("/slot")
     public ModelAndView saveSlot(@ModelAttribute("slotRecord") Slot slot) {
         slotDao.saveNewSlot(slot);
@@ -105,29 +107,39 @@ public class GymController {
           SlotItem slotItem=new SlotItem(embed);
           slotItemDao.save(slotItem);
         }
-        return new ModelAndView("index");
-    }
-    
-    @GetMapping("/slots")
-    public ModelAndView showSlotReportPage() {
+        //return new ModelAndView("redirect:/index");
+        //return new ModelAndView("slotReportPage1");
         List<Slot> slotList = slotDao.displayAllSlots();
-        ModelAndView mv = new ModelAndView("slotReportPage");
+        ModelAndView mv = new ModelAndView("slotReportPage1");
         mv.addObject("slotList", slotList);
         return mv;
     }
     
-    @DeleteMapping("/gymitem/{id}")
-    public ResponseEntity<?> deleteItem(@PathVariable Long id) {
-        try {
-            gymItemService.deleteItemById(id);
-            return ResponseEntity.ok().build();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item with ID " + id + " not found");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
-        }
+    @GetMapping("/slots")
+    public ModelAndView showSlotReportPage1() {
+        List<Slot> slotList = slotDao.displayAllSlots();
+        ModelAndView mv = new ModelAndView("slotReportPage1");
+        mv.addObject("slotList", slotList);
+        return mv;
     }
     
+    @GetMapping("/slots2")
+    public ModelAndView showSlotReportPage2() {
+        List<Slot> slotList = slotDao.displayAllSlots();
+        ModelAndView mv = new ModelAndView("slotReportPage2");
+        mv.addObject("slotList", slotList);
+        return mv;
+    }
+    
+   @DeleteMapping("/gymitem/{id}") public ResponseEntity<?>
+   deleteItem(@PathVariable Long id) { try { gymItemService.deleteItemById(id);
+   return ResponseEntity.ok().build(); } catch (IllegalArgumentException e) {
+   return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item with ID " + id
+   + " not found"); } catch (Exception e) { return
+   ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
+   body("An error occurred: " + e.getMessage()); } 
+   }
+   
     @GetMapping("/gymitem/edit/{id}")
     public ModelAndView showEditItemPage(@PathVariable Long id) {
         GymItem gymItem = gymItemDao.findItemById(id);
@@ -171,12 +183,18 @@ public class GymController {
     @GetMapping("/slot-show/{id}")  
       public ModelAndView showSlotEnquirePage(@PathVariable Long id)  {
         Slot slot=slotDao.findSlotById(id);
-        List<GymItem> itemList=gymItemDao.displayAllItems();
+        List<Item> itemList=itemService.getItemList(id);
         ModelAndView mv = new ModelAndView("slotBookPage");
         mv.addObject("slot",slot);
         mv.addObject("itemList",itemList);
         itemList.forEach(item->System.out.println(item));
         return mv;
     }
-  
+    
+    @GetMapping("/slot-item-add/{id}")
+    public ModelAndView saveItemSlots(@PathVariable Long id) {
+      itemService.addNewItemToSlots(id);
+      return new ModelAndView("redirect:/index");
+    }
+    
 }

@@ -10,7 +10,7 @@
             box-sizing: border-box;
         }
         body {
-           /*  background-image: url('/image/BGimg.jpg') no-repeat center center fixed; */
+           /* background-image: url('/images/BGimg.jpg') no-repeat center center fixed;   */
             /* background: url('https://img.freepik.com/premium-photo/contemporary-spotless-fitness-gym-center-interiorgenerative-ai_391052-10889.jpg') no-repeat center center fixed; */
             background-repeat: no-repeat;
             background-position: center center;
@@ -209,7 +209,7 @@
         }
     </style>
 </head>
-<body>
+<body background="/images/BGimg.jpg">
     <div class="blur-overlay"></div>
     <div class="container" id="container">
         <div align="center" class="form-container sign-in-container">

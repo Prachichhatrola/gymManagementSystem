@@ -2,8 +2,10 @@ package com.GymInfo.gymManagementSystem.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="slot")
 public class Slot {
   @Id
     private Long slotId;

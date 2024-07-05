@@ -24,7 +24,7 @@ protected void configure(AuthenticationManagerBuilder authority) throws Exceptio
 }
 @Override
 public void configure(HttpSecurity http) throws Exception {
- http.authorizeRequests().antMatchers("/register").permitAll().anyRequest().authenticated().and().formLogin().loginPage("/loginpage").failureUrl("/loginerror").loginProcessingUrl("/login").permitAll().and().logout().logoutSuccessUrl("/index");
+ http.authorizeRequests().antMatchers("/register", "/images/**").permitAll().anyRequest().authenticated().and().formLogin().loginPage("/loginpage").failureUrl("/loginerror").loginProcessingUrl("/login").permitAll().and().logout().logoutSuccessUrl("/index");
     http.csrf().disable();  
  }
 

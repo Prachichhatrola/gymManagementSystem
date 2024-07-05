@@ -3,8 +3,10 @@ package com.GymInfo.gymManagementSystem.bean;
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="gym_item")
 public class GymItem  {
   @Id
   private long itemId;
@@ -12,6 +14,7 @@ public class GymItem  {
   private Integer totalSeat;
   public GymItem() {
   super();
+  // TODO Auto-generated constructor stub
   }
   public GymItem(long itemId, String itemName, Integer totalSeat) {
   super();

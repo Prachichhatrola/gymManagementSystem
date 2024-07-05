@@ -1,6 +1,7 @@
 package com.GymInfo.gymManagementSystem.dao;
 
 import java.util.List;
+
 import com.GymInfo.gymManagementSystem.bean.GymItem;
 
 public interface GymItemDao {
@@ -10,4 +11,5 @@ public interface GymItemDao {
     Long generateItemId();
     void deleteItemById(Long id);
     public void updateItem(GymItem gymItem);
+    public Integer findTotalSeatById(Long id);
 }

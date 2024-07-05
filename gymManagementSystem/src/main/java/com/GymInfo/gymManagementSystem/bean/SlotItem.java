@@ -14,10 +14,10 @@ public class SlotItem {
     // TODO Auto-generated constructor stub
   }
   public SlotItem(SlotItemEmbed embeddedId) {
-      super();
-      this.embeddedId = embeddedId;
-      this.seatBooked = 0;
-    }
+	    super();
+	    this.embeddedId = embeddedId;
+	    this.seatBooked = 0;
+	  }
   public SlotItem(SlotItemEmbed embeddedId, Integer seatBooked) {
     super();
     this.embeddedId = embeddedId;

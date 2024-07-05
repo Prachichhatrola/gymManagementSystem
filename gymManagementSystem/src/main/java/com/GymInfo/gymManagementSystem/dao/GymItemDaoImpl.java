@@ -37,6 +37,11 @@ public class GymItemDaoImpl implements GymItemDao {
             val = val + 1;
         return val;
     }
+    
+    @Override
+  public Integer findTotalSeatById(Long id) {
+    return repository.findTotalSeatById(id);
+  }
 
     @Override
     public void deleteItemById(Long id) {
@@ -54,4 +59,5 @@ public class GymItemDaoImpl implements GymItemDao {
             throw new IllegalArgumentException("Item with ID " + gymItem.getItemId() + " not found");
         }
     }
+
 }

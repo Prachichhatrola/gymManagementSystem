@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="header.jsp" %>
+<%@ include file="header1.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,7 +12,7 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-image: url('/image/BGimg.jpg');
+        background-image: url('/images/BGimg.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;

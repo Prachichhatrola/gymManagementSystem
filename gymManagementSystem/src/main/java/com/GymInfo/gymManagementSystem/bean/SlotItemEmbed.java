@@ -1,10 +1,10 @@
 package com.GymInfo.gymManagementSystem.bean;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
-@SuppressWarnings("serial")
 @Embeddable
 public class SlotItemEmbed implements Serializable{
   @NotNull
@@ -20,19 +20,18 @@ public class SlotItemEmbed implements Serializable{
     this.slotId = slotId;
     this.itemId = itemId;
   }
+
   @Override
   public int hashCode() {
-    String ss=" "+slotId+itemId;
-    int val=Integer.parseInt(ss);
-    return val;
+    return Objects.hash(slotId, itemId);
   }
+
   @Override
   public boolean equals(Object obj) {
-    SlotItemEmbed other=(SlotItemEmbed) obj;
-    if(this.hashCode()== other.hashCode())
-      return true;
-    else
-      return false;
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    SlotItemEmbed that = (SlotItemEmbed) obj;
+    return Objects.equals(slotId, that.slotId) && Objects.equals(itemId, that.itemId);
   }
   public Long getSlotId() {
     return slotId;

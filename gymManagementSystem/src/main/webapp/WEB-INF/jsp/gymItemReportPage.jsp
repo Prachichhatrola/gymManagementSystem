@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="header.jsp" %>
+<%@ include file="header1.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +10,7 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-image: url('/image/BGimg.jpg');
+        background-image: url('/images/BGimg.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -109,6 +109,7 @@
             <th>Item Number</th>
             <th>Item Name</th>
             <th>Total Seat/Slot</th>
+            <th>Add To Slots</th>
             <th>Actions</th>
         </tr>
         <c:forEach items="${itemList}" var="item">
@@ -116,6 +117,7 @@
             <td>${item.itemId}</td>
             <td>${item.itemName}</td>
             <td>${item.totalSeat}</td>
+            <td><a href="/slot-item-add/${item.itemId}">Add To Slots</a></td>
             <td>
                 <a href="#" class="delete-button" onclick="deleteItem(${item.itemId});">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

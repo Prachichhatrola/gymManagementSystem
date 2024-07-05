@@ -93,7 +93,7 @@
 </head>
 <body>
 <div class="navbar">
-    <img src="/image/logo.jpg" alt="Gym Logo">
+    <img src="/images/logo.jpg" alt="Gym Logo">
         <div>
         <div class="navbar-item">
             <a href="/index" class="navbar-item">Home</a>
