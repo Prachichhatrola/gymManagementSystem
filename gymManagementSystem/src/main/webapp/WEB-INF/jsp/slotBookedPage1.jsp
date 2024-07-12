@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ include file="header2.jsp" %>
-
+<%@ include file="header1.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Book Slot</title>
+<title>Booked Slots</title>
 <style>
-    body {
+   body {
         font-family: Arial, sans-serif;
         background-image: url('/images/BGimg.jpg');
         background-size: cover;
@@ -102,45 +100,29 @@
         background-color: #5a5a5a;
     }
 </style>
-<script>
-function view() {
-    alert("Booking Done Successfully!!");
-}
-</script>
 </head>
 <body>
-<c:url value="/book" var="book"/>
 <div class="blur-overlay"></div>
 <div class="container">
-    <h3>Slot ID: ${slot.slotId}</h3>
-    <h2>Slot Time: ${slot.slotTime}</h2>
-    <h1>Price: ${slot.pricing}</h1>
-    <form:form id="booking_form" method="post" action="${book}">
-        <input type="hidden" value="${slot.slotId}" name="slot_id"/>
-        <div class="table-container">
-            <table border="1" cellspacing="3" cellpadding="3">
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Booking Id</th>
+                <th>Slot Id</th>
+                <th>Item Id</th>
+                <th>User Name</th>
+            </tr>
+            <c:forEach items="${bookList}" var="item">
                 <tr>
-                    <th>Item No</th>
-                    <th>Item Name</th>
-                    <th>Total Seat</th>
-                    <th>Available Seat</th>
-                    <th>Select</th>
+                    <td>${item.bookingId}</td>
+                    <td>${item.slotId}</td>
+                    <td>${item.itemId}</td>
+                    <td>${item.username}</td>
                 </tr>
-                <c:forEach items="${itemList}" var="item">
-                    <tr>
-                        <td>${item.itemId}</td>
-                        <td>${item.itemName}</td>
-                        <td>${item.totalSeat}</td>
-                        <td>${item.seatVacant }</td>
-                        <td><input name="selectItem" type="radio" value="${item.itemId}"/></td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </div>
-        <br/>
-        <button type="submit" class="book" onClick="view();">Book</button>
-        <button type="button" class="return" onclick="window.history.back();">Return</button>
-    </form:form>
+            </c:forEach>
+        </table>
+    </div>
+    <button class="return" onclick="window.location.href='/index'">Return</button>
 </div>
 </body>
 </html>

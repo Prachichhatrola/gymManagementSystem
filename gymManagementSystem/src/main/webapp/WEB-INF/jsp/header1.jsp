@@ -95,6 +95,9 @@
 <div class="navbar">
     <img src="/images/logo.jpg" alt="Gym Logo">
         <div>
+        <div class="navbar-item">
+            <a href="/index" class="navbar-item">Home</a>
+        </div>
         <div class="navbar-item has-subnav">
             Item
             <div class="subnav">
@@ -107,6 +110,7 @@
             <div class="subnav">
                 <a href="/slot" class="subnav-item">Add Slot</a>
                 <a href="/slots" class="subnav-item">Manage Slots</a>
+                <a href="/booked"class="subnav-item">View Booking</a>
             </div>
         </div>
         <button class="logout-button" onclick="window.location.href='/logout'">Log Out</button>

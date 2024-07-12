@@ -1,40 +1,34 @@
 package com.GymInfo.gymManagementSystem.bean;
 
 import org.springframework.security.core.GrantedAuthority;
-
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Collection;
-import java.util.ArrayList;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Collections;
 
 @Entity
 @Table(name = "gym_user")
-public class GymUser extends User {
+public class GymUser implements UserDetails {
 
     @Id
+    @NotBlank(message = "Username is mandatory")
     private String username;
+    @NotBlank(message = "Password is mandatory")
+    @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
+    @NotBlank(message = "First name is mandatory")
     private String firstName;
+    @NotBlank(message = "Last name is mandatory")
     private String lastName;
     private String email;
+    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email should be valid")
     private String type;
-
-    public GymUser() {
-        super("abc", "xyz", new ArrayList<>());
-    }
-
-    public GymUser(String username, String password, Collection<? extends GrantedAuthority> authorities, 
-                   String firstName, String lastName, String email, String type) {
-        super(username, password, authorities);
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.type = type;
-    }
 
     public String getUsername() {
         return username;
@@ -85,8 +79,28 @@ public class GymUser extends User {
     }
 
     @Override
-    public String toString() {
-        return "GymUser [username=" + username + ", password=" + password + ", firstName=" + firstName + ", lastName="
-                + lastName + ", email=" + email + ", type=" + type + "]";
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // You can add roles or authorities here
+        return Collections.emptyList();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
