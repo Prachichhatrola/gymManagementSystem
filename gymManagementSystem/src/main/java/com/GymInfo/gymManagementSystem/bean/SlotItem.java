@@ -11,7 +11,6 @@ public class SlotItem {
   public SlotItem() {
     super();
     seatBooked=0;
-    // TODO Auto-generated constructor stub
   }
   public SlotItem(SlotItemEmbed embeddedId) {
 	    super();
@@ -29,10 +28,10 @@ public class SlotItem {
   public void setEmbeddedId(SlotItemEmbed embeddedId) {
     this.embeddedId = embeddedId;
   }
-  public Integer getSeatBooked() {
+  public Integer getseatBooked() {
     return seatBooked;
     }
-    public void setSeatBooked(Integer seatBooked) {
+    public void setseatBooked(Integer seatBooked) {
     this.seatBooked = seatBooked;
-    }
+    } 
 }

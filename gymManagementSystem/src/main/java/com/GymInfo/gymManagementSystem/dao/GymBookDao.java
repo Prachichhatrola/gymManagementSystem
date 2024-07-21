@@ -10,6 +10,5 @@ public interface GymBookDao {
  public GymBook findBookInfoById(Long id);
  public void deleteById(Long id);
 public List<GymBook> getEntitiesByUsername(String username);
-public boolean isSlotBooked(Long slotId, String username);
 
 }

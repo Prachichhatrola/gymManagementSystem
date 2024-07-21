@@ -49,9 +49,5 @@ public class GymBookImpl implements GymBookDao {
 public List<GymBook> getEntitiesByUsername(String username) {
 	return repository.findByUsername(username);
 }
-
-public boolean isSlotBooked(Long slotId, String username) {
-   return repository.isSlotBooked(slotId, username);
-}
  
 }

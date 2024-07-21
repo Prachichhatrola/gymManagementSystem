@@ -57,8 +57,6 @@
     .table-container {
         display: flex;
         justify-content: center;
-        overflow-y: auto;
-        max-height: 400px;
     }
     table {
         border-collapse: collapse;
@@ -113,7 +111,6 @@
                 <th>Slot Id</th>
                 <th>Item Id</th>
                 <th>User Name</th>
-                <th>Cancel Booking</th>
             </tr>
             <c:forEach items="${bookList}" var="item">
                 <tr>
@@ -121,7 +118,6 @@
                     <td>${item.slotId}</td>
                     <td>${item.itemId}</td>
                     <td>${item.username}</td>
-                    <td><a href="/cancel?slotId=${item.slotId}&itemId=${item.itemId}&selectBookingId=${item.bookingId}">Cancel</a></td>
                 </tr>
             </c:forEach>
         </table>
