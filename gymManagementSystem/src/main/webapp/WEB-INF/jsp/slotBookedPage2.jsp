@@ -8,7 +8,7 @@
 <meta charset="ISO-8859-1">
 <title>Booked Slots</title>
 <style>
-   body {
+    body {
         font-family: Arial, sans-serif;
         background-image: url('/images/BGimg.jpg');
         background-size: cover;
@@ -57,6 +57,8 @@
     .table-container {
         display: flex;
         justify-content: center;
+        overflow-y: auto;
+        max-height: 400px;
     }
     table {
         border-collapse: collapse;
@@ -110,12 +112,14 @@
                 <th>Booking Id</th>
                 <th>Slot Id</th>
                 <th>Item Id</th>
+                <th>Cancel Booking</th>
             </tr>
             <c:forEach items="${bookList}" var="item">
                 <tr>
                     <td>${item.bookingId}</td>
                     <td>${item.slotId}</td>
                     <td>${item.itemId}</td>
+                    <td><a href="/cancel?slotId=${item.slotId}&itemId=${item.itemId}&selectBookingId=${item.bookingId}">Cancel</a></td>
                 </tr>
             </c:forEach>
         </table>

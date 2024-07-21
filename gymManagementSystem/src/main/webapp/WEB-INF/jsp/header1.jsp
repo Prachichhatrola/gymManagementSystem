@@ -111,6 +111,8 @@
                 <a href="/slot" class="subnav-item">Add Slot</a>
                 <a href="/slots" class="subnav-item">Manage Slots</a>
                 <a href="/booked"class="subnav-item">View Booking</a>
+                <a href="/eslot"class="subnav-item">View Empty Slot</a>
+                <a href="/bslot"class="subnav-item">View Booked Slot</a>
             </div>
         </div>
         <button class="logout-button" onclick="window.location.href='/logout'">Log Out</button>

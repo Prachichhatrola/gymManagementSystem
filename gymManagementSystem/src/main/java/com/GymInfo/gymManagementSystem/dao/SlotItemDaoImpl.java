@@ -1,5 +1,6 @@
 package com.GymInfo.gymManagementSystem.dao;
 
+import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,5 +34,15 @@ public class SlotItemDaoImpl implements SlotItemDao{
 	public SlotItem findById(SlotItemEmbed embed) {
 		// TODO Auto-generated method stub
 		return entityManager.find(SlotItem.class, embed);
+	}
+	@Override
+	public List<SlotItem> displayEmptySlots() {
+		// TODO Auto-generated method stub
+		return repository.displayEmptySlots();
+	}
+	@Override
+	public List<SlotItem> displayBookedSlots() {
+		// TODO Auto-generated method stub
+		return repository.displayBookedSlots();
 	}
 }

@@ -1,8 +1,8 @@
 package com.GymInfo.gymManagementSystem.exception;
 
-public class SeatNotAvailableException extends RuntimeException{
+public class SlotAlreadyBookedException extends RuntimeException{
 	private static final long serialVersionUID=1L;
-	public SeatNotAvailableException(String message) {
+	public SlotAlreadyBookedException(String message) {
         super(message);
     }
 }

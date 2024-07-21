@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="header1.jsp" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ include file="header1.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Booked Slots</title>
+<title>Booked Slot List</title>
 <style>
-   body {
+    body {
         font-family: Arial, sans-serif;
         background-image: url('/images/BGimg.jpg');
         background-size: cover;
@@ -35,37 +36,23 @@
         position: relative;
         z-index: 2;
         background-color: rgba(255, 255, 255, 0.8);
-        margin-top: 70px;
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         width: 50%;
         text-align: center;
-    }
-    h1, h2, h3 {
-        margin: 10px 0;
+        margin-top: 80px;
     }
     h1 {
         color: #C21807;
-    }
-    h2 {
-        color: #333;
-    }
-    h3 {
-        color: #666;
-    }
-    .table-container {
-        display: flex;
-        justify-content: center;
-        overflow-y: auto;
-        max-height: 400px;
+        margin-bottom: 20px;
     }
     table {
+        margin: 20px auto;
         border-collapse: collapse;
         width: 100%;
         background-color: #fff;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        margin: 20px 0;
     }
     th, td {
         padding: 12px;
@@ -79,54 +66,61 @@
     tr:hover {
         background-color: #f1f1f1;
     }
-    button {
+    a.return-button {
+        display: inline-block;
         padding: 10px 20px;
-        margin: 20px 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-    button.book {
+        margin: 20px 0;
         background-color: #C21807;
         color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
     }
-    button.book:hover {
+    a.return-button:hover {
         background-color: #d43d23;
     }
-    button.return {
-        background-color: grey;
-        color: white;
+    .delete-button {
+        display: inline-block;
+        padding: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #333;
     }
-    button.return:hover {
-        background-color: #5a5a5a;
+    .delete-button:hover {
+        color: #dc3545;
+    }
+    .edit-button {
+        display: inline-block;
+        padding: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #333;
+    }
+    .edit-button:hover {
+        color: #dc3545;
     }
 </style>
 </head>
 <body>
 <div class="blur-overlay"></div>
 <div class="container">
-    <div class="table-container">
-        <table>
+    <h1>All Slots</h1>
+    <table border="2">
+        <tr>
+            <th>Slot Id</th>
+            <th>Item Id</th>
+            <th>Seat Booked</th> 
+        </tr>
+        <c:forEach items="${slot_item}" var="slot">
             <tr>
-                <th>Booking Id</th>
-                <th>Slot Id</th>
-                <th>Item Id</th>
-                <th>User Name</th>
-                <th>Cancel Booking</th>
+                <td>${slot.embeddedId.slotId}</td>
+                <td>${slot.embeddedId.itemId}</td>
+                <td>${slot.seatBooked}</td>
             </tr>
-            <c:forEach items="${bookList}" var="item">
-                <tr>
-                    <td>${item.bookingId}</td>
-                    <td>${item.slotId}</td>
-                    <td>${item.itemId}</td>
-                    <td>${item.username}</td>
-                    <td><a href="/cancel?slotId=${item.slotId}&itemId=${item.itemId}&selectBookingId=${item.bookingId}">Cancel</a></td>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
-    <button class="return" onclick="window.location.href='/index'">Return</button>
+        </c:forEach>
+    </table>
+    <br/><br/>
+    <a href="/index" class="return-button">Return</a>
 </div>
 </body>
 </html>
