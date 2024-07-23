@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="header1.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +10,6 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-image: url('/images/BGimg.jpg');
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -38,16 +37,19 @@
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        width: 50%;
+        width: 40%;
         text-align: center;
     }
-    h1 {
-        color: black;
+    h1.success {
+        color: green;
         margin: 10px 0;
+        font-size: 24px;
         font-weight: bold;
     }
-    .info {
-        color: red;
+    h1.info {
+        color: black;
+        margin: 10px 0;
+        font-size: 18px;
         font-weight: normal;
     }
     button {
@@ -66,13 +68,15 @@
     }
 </style>
 </head>
-<body>
+<body background="/images/BGimg.jpg">
 <div class="blur-overlay"></div>
 <div class="container">
-    <h1>Booking ID: <span class="info">${gymbook.bookingId}</span></h1>
-    <h1>Slot ID: <span class="info">${gymbook.slotId}</span></h1>
-    <h1>Item ID: <span class="info">${gymbook.itemId}</span></h1>
-    <h1>User ID: <span class="info">${gymbook.username}</span></h1>
+    <h1 class="success">Booking Successful!</h1>
+    <br>
+    <h1 class="info">Booking ID: ${gymbook.bookingId}</h1>
+    <h1 class="info">Slot ID: ${gymbook.slotId}</h1>
+    <h1 class="info">Item ID: ${gymbook.itemId}</h1>
+    <h1 class="info">User ID: ${gymbook.username}</h1>
     <button onclick="window.location.href='/index'">Return</button>
 </div>
 </body>

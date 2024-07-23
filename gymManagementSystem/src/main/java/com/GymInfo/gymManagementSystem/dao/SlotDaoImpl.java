@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.GymInfo.gymManagementSystem.bean.GymItem;
 import com.GymInfo.gymManagementSystem.bean.Slot;
-
+//slotdaoimpl
 @Repository
 @Service
 public class SlotDaoImpl implements SlotDao {

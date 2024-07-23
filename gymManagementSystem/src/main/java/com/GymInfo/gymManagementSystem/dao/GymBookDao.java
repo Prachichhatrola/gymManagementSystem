@@ -1,7 +1,10 @@
 package com.GymInfo.gymManagementSystem.dao;
 
 import java.util.List;
+
 import com.GymInfo.gymManagementSystem.bean.GymBook;
+
+//gymbookdao
 
 public interface GymBookDao {
  public void save(GymBook gymBook);

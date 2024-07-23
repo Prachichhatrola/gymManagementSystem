@@ -101,12 +101,42 @@
     button.return:hover {
         background-color: #5a5a5a;
     }
+    .alert-success {
+        display: none;
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        font-size: 1.2em;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+    .alert-success.show {
+        display: block;
+        opacity: 1;
+    }
+    .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 20px;
+        }
 </style>
-<script>
-function view() {
-    alert("Booking Done Successfully!!");
+<!-- <script>
+function showAlert() {
+    var alertBox = document.getElementById('success-alert');
+    alertBox.classList.add('show');
+    setTimeout(function() {
+        alertBox.classList.remove('show');
+    }, 15000);
 }
-</script>
+</script> -->
 </head>
 <body>
 <c:url value="/slot-book" var="book"/>
@@ -139,9 +169,10 @@ function view() {
             </table>
         </div>
         <br/>
-        <button type="submit" class="book" onClick="view();">Book</button>
+        <button type="submit" class="book" onClick="showAlert();">Book</button>
         <button type="button" class="return" onclick="window.history.back();">Return</button>
     </form:form>
 </div>
+<!-- <div id="success-alert" class="alert-success">Booking Done Successfully!</div> -->
 </body>
 </html>

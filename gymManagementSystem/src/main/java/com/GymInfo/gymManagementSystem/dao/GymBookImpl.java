@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import com.GymInfo.gymManagementSystem.bean.GymBook;
-
+//gymbookimpl
 @Service
 @Repository
 public class GymBookImpl implements GymBookDao {
