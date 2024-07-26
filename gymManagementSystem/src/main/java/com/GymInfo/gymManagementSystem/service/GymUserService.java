@@ -16,12 +16,19 @@ public class GymUserService implements UserDetailsService {
    private GymUserRepository repository;
    private String type;
    private GymUser users;
+   
    public void save(GymUser user) {
     repository.save(user);
    }
+   
    public String getType() {
     return type;
    }
+   
+   public void delete(String username) {
+	    repository.deleteById(username);
+   }
+   
    @Override
    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        users = repository.findByUsername(username).get();
@@ -40,4 +47,9 @@ public class GymUserService implements UserDetailsService {
    public List<String> getAllMembers() {
 	   return repository.findAllMemberUsers();
    }
+   
+   public List<GymUser> getAllUsers() {
+	   return repository.findAll();
+   }
+   
 }

@@ -1,21 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Log In</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
         * {
             box-sizing: border-box;
         }
         body {
-           /* background-image: url('/images/BGimg.jpg') no-repeat center center fixed;   */
-            /* background: url('https://img.freepik.com/premium-photo/contemporary-spotless-fitness-gym-center-interiorgenerative-ai_391052-10889.jpg') no-repeat center center fixed; */
+            background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
             background-attachment: fixed;
-            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -96,11 +97,26 @@
             margin: 8px 0;
             width: 100%;
         }
+        .password-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .password-container input {
+            flex: 1;
+            padding-right: 30px;
+        }
+        .password-container .toggle-password {
+            position: absolute;
+            right: 10px;
+            cursor: pointer;
+        }
         .container {
             background-color: #d3d3d3;
             border-radius: 10px;
             box-shadow: 0 14px 28px rgba(0,0,0,0.25),
-                    0 10px 10px rgba(0,0,0,0.22);
+                        0 10px 10px rgba(0,0,0,0.22);
             position: relative;
             overflow: hidden;
             width: 768px;
@@ -219,7 +235,11 @@
                     <br/><br/>
                     Enter User Id : <input type="text" name="username" placeholder="User Id" required/>
                     <br/>
-                    Enter Password : <input type="password" name="password" placeholder="Password" required/>
+                    Enter Password :
+                    <div class="password-container">
+                        <input type="password" name="password" id="password" placeholder="Password" required/>
+                        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                    </div>
                     <br/>
                     <c:if test="${not empty errorMessage}">
                         <div class="error-message">${errorMessage}</div>
@@ -239,5 +259,13 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 </body>
 </html>

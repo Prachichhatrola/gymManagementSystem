@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import com.GymInfo.gymManagementSystem.bean.GymBook;
-//gymbookimpl
+
 @Service
 @Repository
 public class GymBookImpl implements GymBookDao {
@@ -46,8 +46,12 @@ public class GymBookImpl implements GymBookDao {
  }
 
 @Override
-public List<GymBook> getEntitiesByUsername(String username) {
+public List<GymBook> getBookingByUsername(String username) {
 	return repository.findByUsername(username);
+}
+
+public boolean isSlotBooked(Long slotId, String username) {
+   return repository.isSlotBooked(slotId, username);
 }
  
 }

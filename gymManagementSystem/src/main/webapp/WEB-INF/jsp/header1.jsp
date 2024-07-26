@@ -73,19 +73,21 @@
             background-color: #fff;
             color: #C21807;
         }
-        .logout-button {
+        .profile-icon {
             background-color: #ffffff;
             color: #C21807;
             border: 2px solid #C21807;
-            padding: 12px 20px;
-            font-size: 0.9em;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 50%;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
             margin-left: 20px;
             margin-right: 50px;
+            font-size: 20px;
+            text-align: center;
+            line-height: 1;
         }
-        .logout-button:hover {
+        .profile-icon:hover {
             background-color: #C21807;
             color: #ffffff;
         }
@@ -94,7 +96,7 @@
 <body>
 <div class="navbar">
     <img src="/images/logo.jpg" alt="Gym Logo">
-        <div>
+    <div>
         <div class="navbar-item">
             <a href="/index" class="navbar-item">Home</a>
         </div>
@@ -110,12 +112,24 @@
             <div class="subnav">
                 <a href="/slot" class="subnav-item">Add Slot</a>
                 <a href="/slots" class="subnav-item">Manage Slots</a>
-                <a href="/booked"class="subnav-item">View Booking</a>
-                <a href="/eslot"class="subnav-item">View Empty Slot</a>
-                <a href="/bslot"class="subnav-item">View Booked Slot</a>
+                <a href="/booked" class="subnav-item">View Booking</a>
+                <a href="/eslot" class="subnav-item">View Empty Slot</a>
+                <a href="/bslot" class="subnav-item">View Booked Slot</a>
             </div>
         </div>
-        <button class="logout-button" onclick="window.location.href='/logout'">Log Out</button>
+        <div class="navbar-item">
+            <a href="/users" class="navbar-item">Users</a>
+        </div>
+        <div class="navbar-item">
+            <a href="/feedback-report" class="navbar-item">Feedback</a>
+        </div>
+        <div class="navbar-item has-subnav">
+            <span class="profile-icon">&#128100;</span>
+            <div class="subnav">
+                <a href="/profile/${username}" class="subnav-item">My Profile</a>
+                <a href="/logout" class="subnav-item">Log Out</a>
+            </div>
+        </div>
     </div>
 </div>
 </body>

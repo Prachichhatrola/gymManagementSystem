@@ -159,7 +159,8 @@ function showAlert() {
                 <tr>
                     <th>Item No</th>
                     <th>Item Name</th>
-                    <th>Total Seat</th>
+
+<th>Total Seat</th>
                     <th>Available Seat</th>
                     <th>Select</th>
                 </tr>
@@ -174,7 +175,6 @@ function showAlert() {
                 </c:forEach>
             </table>
         </div>
-        <br/>
         <button type="submit" class="book" onClick="showAlert();">Book</button>
         <button type="button" class="return" onclick="window.history.back();">Return</button>
     </form:form>
