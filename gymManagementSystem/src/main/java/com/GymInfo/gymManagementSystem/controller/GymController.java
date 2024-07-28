@@ -324,13 +324,21 @@ public class GymController {
         return mv;
     }
     
-    @GetMapping("/profile/{username}")
-    public ModelAndView showProfilePage(@PathVariable String username) {
-    	GymUser user = userService.findByUsername(username);
-        ModelAndView mv = new ModelAndView("profilePage");
-        mv.addObject("user", user);
-        return mv;
+    
+    @ModelAttribute
+    public void addUserAttributes(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = null;
+        if (auth.getPrincipal() instanceof UserDetails) {
+            currentUsername = ((UserDetails) auth.getPrincipal()).getUsername();
+        } else {
+            currentUsername = auth.getPrincipal().toString();
+        }
+        
+        GymUser user = userService.findByUsername(currentUsername);
+        model.addAttribute("currentUser", user);
     }
+
     
     @GetMapping("/users")
     public ModelAndView showUsersPage() {

@@ -1,12 +1,8 @@
 package com.GymInfo.gymManagementSystem.bean;
 
-import javax.persistence.Entity;
 
-import javax.persistence.Id;
-
-@Entity
 public class Item  {
-  @Id
+
   private long itemId;
   private String itemName;
   private Integer totalSeat;

@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,6 +93,59 @@
             background-color: #C21807;
             color: #ffffff;
         }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+        .profile-pic {
+            font-size: 40px;
+            align: center;
+        }
+        .profile-name {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .profile-email {
+            font-size: 14px;
+            color: #888;
+        }
+        .profile-info {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .container {
+            margin-top: 80px;
+            padding: 20px;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 100;
+        }
+        #profileSubnav{
+         background-color: #C21807;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        text-align: left;
+        z-index: 1;
+        }
+        
     </style>
 </head>
 <body>
@@ -116,10 +171,18 @@
         <div class="navbar-item">
         	<a href="/contactUs" class="navbar-item">Contact Us</a>
         </div>
+ 
         <div class="navbar-item has-subnav">
-            <span class="profile-icon">&#128100;</span>
-            <div class="subnav">
-                <a href="/profile/${username}" class="subnav-item">My Profile</a>
+            <span class="profile-icon" id="profileIcon">&#128100;</span>
+            <div class="subnav" id="profileSubnav">
+               
+                    <div class="profile-pic">&#128100;</div> 
+                                   
+                        <div class="profile-name">${currentUser.username}</div>
+                        <div class="profile-email">${currentUser.email}</div>
+                <div class="profile-info">First Name: <span>${currentUser.firstName}</span></div>
+                <div class="profile-info">Last Name: <span>${currentUser.lastName}</span></div>
+                <div class="profile-info">Type: <span>${currentUser.type}</span></div>
                 <a href="/logout" class="subnav-item">Log Out</a>
             </div>
         </div>
