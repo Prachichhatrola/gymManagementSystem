@@ -43,8 +43,9 @@ Gym Management System project features user authentication, slot scheduling, ava
   <br />
 
   ## ER Diagram:
-![ERD](https://github.com/user-attachments/assets/e4c990b8-5549-4627-ab04-c2c0e6527cf4)
-|-|-|
+  
+![ERD](https://github.com/user-attachments/assets/e4c990b8-5549-4627-ab04-c2c0e6527cf4) 
+
 
   </br>
 
