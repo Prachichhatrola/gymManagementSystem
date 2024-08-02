@@ -38,24 +38,30 @@
         background-color: rgba(255, 255, 255, 0.8);
         padding: 30px;
         border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         width: 50%;
         text-align: center;
         margin-top: 80px;
     }
+    .table-container {
+        display: flex;
+        justify-content: center;
+        overflow-y: auto;
+        max-height: 400px;
+    }
     h1 {
         color: #C21807;
-        margin-bottom: 20px;
+        margin-bottom: 8px;
     }
     table {
-        margin: 20px auto;
+        margin: 10px auto;
         border-collapse: collapse;
         width: 100%;
         background-color: #fff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     th, td {
-        padding: 12px;
+        padding: 5px;
         text-align: left;
         border-bottom: 1px solid #ddd;
     }
@@ -68,8 +74,8 @@
     }
     a.return-button {
         display: inline-block;
-        padding: 10px 20px;
-        margin: 20px 0;
+        padding: 5px 10px;
+        margin: 5px 0;
         background-color: #C21807;
         color: white;
         text-decoration: none;
@@ -79,32 +85,13 @@
     a.return-button:hover {
         background-color: #d43d23;
     }
-    .delete-button {
-        display: inline-block;
-        padding: 4px;
-        cursor: pointer;
-        text-decoration: none;
-        color: #333;
-    }
-    .delete-button:hover {
-        color: #dc3545;
-    }
-    .edit-button {
-        display: inline-block;
-        padding: 4px;
-        cursor: pointer;
-        text-decoration: none;
-        color: #333;
-    }
-    .edit-button:hover {
-        color: #dc3545;
-    }
 </style>
 </head>
 <body>
 <div class="blur-overlay"></div>
 <div class="container">
     <h1>All Slots</h1>
+    <div class="table-container">
     <table border="2">
         <tr>
             <th>Slot Id</th>
@@ -119,7 +106,7 @@
             </tr>
         </c:forEach>
     </table>
-    <br/>
+    </div>
     <a href="/index" class="return-button">Return</a>
 </div>
 </body>
