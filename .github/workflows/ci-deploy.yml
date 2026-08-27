@@ -1,0 +1,115 @@
+name: Build, Test & Deploy
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main, develop ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run tests
+        run: mvn -B -DskipTests=false test
+        working-directory: ./gymManagementSystem
+
+      - name: Build package
+        run: mvn -B -DskipTests clean package
+        working-directory: ./gymManagementSystem
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: gymManagementSystem-war
+          path: ./gymManagementSystem/target/*.war
+          retention-days: 1
+
+  deploy-heroku:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build Docker image
+        run: |
+          docker build -t gymms-app:${{ github.sha }} \
+            -t gymms-app:latest .
+        working-directory: ./gymManagementSystem
+
+      - name: Login to Heroku Container Registry
+        run: |
+          echo ${{ secrets.HEROKU_API_KEY }} | docker login --username=_ --password-stdin registry.heroku.com
+
+      - name: Tag image for Heroku
+        run: |
+          docker tag gymms-app:latest registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web:latest
+
+      - name: Push to Heroku Container Registry
+        run: |
+          docker push registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web:latest
+
+      - name: Release on Heroku
+        run: |
+          heroku container:release web --app=${{ secrets.HEROKU_APP_NAME }}
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+  deploy-render:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build Docker image
+        run: |
+          docker build -t gymms-app:${{ github.sha }} \
+            -t gymms-app:latest .
+        working-directory: ./gymManagementSystem
+
+      - name: Deploy to Render via webhook
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_WEBHOOK }} \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"imageUrl": "'"${{ secrets.RENDER_IMAGE_URL }}"'", "ref": "'"${{ github.sha }}"'"}'
+        if: secrets.RENDER_DEPLOY_WEBHOOK != ''
+
+      - name: Alternative - Push to Docker registry for Render
+        run: |
+          echo "Note: For Render, you can also:"
+          echo "1. Use Render's native Docker support by connecting your repo"
+          echo "2. Push image to Docker Hub and configure Render to pull from there"
+          echo "3. Use Render's native GitHub integration"
+          echo "See RENDER_DEPLOY_WEBHOOK and RENDER_IMAGE_URL in secrets"
